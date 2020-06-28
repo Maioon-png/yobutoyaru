@@ -1,0 +1,24 @@
+.side_bar
+  .side_bar__content
+    %ul.side_bar__content__list
+      %li
+        = link_to "Top", root_path ,class: "side_bar__content__"
+      %li
+        = link_to "Login", root_path ,class: "side_bar__content__"
+      %li
+        = link_to "Signin", root_path ,class: "side_bar__content__"
+      %li
+        = link_to "Room", root_path ,class: "side_bar__content__"
+      %li
+        = link_to "Recoed", root_path ,class: "side_bar__content__"
+      %li
+        = link_to "Contact", root_path ,class: "side_bar__content__"
+        .side_bar__content__list__bottom
+          %ul.side_bar__icons
+            %li
+              = link_to root_path, class: "saide-bar__icon" do
+                = icon('fas', 'user-edit')
+            %li
+              = link_to root_path, class: "saide-bar__icon" do
+                = icon('fas', 'door-open')
+
