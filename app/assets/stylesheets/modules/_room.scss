@@ -1,0 +1,22 @@
+.main__room {
+  width: 100%;
+  position: relative;
+  &__contents {
+    position: absolute;
+    top: 50%;
+    -webkit-transform : translateY(-50%);
+    transform : translateY(-50%);
+    width: 100%;
+    .room_video {
+      display: flex;
+      justify-content: center;
+    }
+    .room_call {
+      width: 100%;
+      &__box {
+        margin: 0 auto;
+        width: 200px;
+      }
+    }
+  }
+}
