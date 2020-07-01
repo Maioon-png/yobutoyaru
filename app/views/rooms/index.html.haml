@@ -1,8 +1,9 @@
 .wrapper
   = render "top/side_bar"
-  .main__room
-    %video{ id: "my-video", width: "400px", autoplay: "", muted: "", playsinline: "" }
-    %p{ id: "my-id" }
-    %textarea{ id: "their-id" }
-    %button{ id: "make-call" }発信
-    %video{ id: "their-video", width: "400px", autoplay: "", muted: "", playsinline: "" }
+  .main__rooms
+    .room_lists
+      %ul
+        - @rooms.each do |room|
+          %li
+          = link_to "#{room.name}", room_path(room) ,class: "side_bar__content__"
+            
