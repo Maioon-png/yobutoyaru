@@ -19,6 +19,6 @@
               = link_to root_path, class: "saide-bar__icon" do
                 = icon('fas', 'user-edit')
             %li
-              = link_to root_path, class: "saide-bar__icon" do
+              = link_to destroy_user_session_path, method: :delete, class: "saide-bar__icon" do
                 = icon('fas', 'door-open')
 
