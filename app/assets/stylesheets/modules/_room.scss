@@ -1,21 +1,46 @@
 .main__room {
   width: 100%;
   position: relative;
-  &__contents {
-    position: absolute;
-    top: 50%;
-    -webkit-transform : translateY(-50%);
-    transform : translateY(-50%);
-    width: 100%;
-    .room_video {
+  .container {
+    .content__main {
       display: flex;
-      justify-content: center;
-    }
-    .room_call {
-      width: 100%;
-      &__box {
-        margin: 0 auto;
-        width: 200px;
+      &__left {
+        // width: 100%;
+        &__inner {
+        //  width: 620px;
+        //  margin: 0 auto;
+        .videos {
+          width: 620px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          .video__main {
+            border: solid 1px peru;
+          }
+          .video__others__1, .video__others__2, .video__others__3, .video__others__4, .video__others__5 {
+            width: 200px;
+            height: 150px;
+            background-color: yellowgreen;
+            border: solid 1px peru;
+          }
+        }
+        }
+      }
+      &__right {
+        height: 308px;
+        width: 100%;
+        &__contents {
+          height: 100%;
+          .messages {
+            height: 100%;
+            position: relative;
+            &__form {
+              position: absolute;
+              bottom: 0;
+              left: 30px;
+            }
+          }
+        }
       }
     }
   }

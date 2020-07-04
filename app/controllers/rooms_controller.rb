@@ -19,7 +19,6 @@ class RoomsController < ApplicationController
       @other_peer = Peer.find_by(peer: params[:peer])
     respond_to do |format|
       format.json { render json: @other_peer.user }
-      binding.pry
     end
   end
 
