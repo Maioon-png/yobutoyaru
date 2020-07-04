@@ -5,14 +5,19 @@ window.onload = function () {
   const joinTrigger = document.getElementById('js-join-trigger');
   const leaveTrigger = document.getElementById('js-leave-trigger');
   const remoteVideos = document.getElementById('js-remote-streams');
+  const remoteVideosClass = document.getElementsByClassName('js-remote-streams');
   const roomId = document.getElementById('js-room-id');
-  const roomMode = document.getElementById('js-room-mode');
+  // const roomMode = document.getElementById('js-room-mode');
   const localText = document.getElementById('js-local-text');
   const sendTrigger = document.getElementById('js-send-trigger');
   const messages = document.getElementById('js-messages');
   // const meta = document.getElementById('js-meta');
   const API_KEY = "8f0613f7-8b39-4b72-bca3-6b39bb8c390d"; 
-
+  const remoteVideo1 = document.getElementById('js-remote-streams-1');
+  const remoteVideo2 = document.getElementById('js-remote-streams-2');
+  const remoteVideo3 = document.getElementById('js-remote-streams-3');
+  const remoteVideo4 = document.getElementById('js-remote-streams-4');
+  const remoteVideo5 = document.getElementById('js-remote-streams-5');
 // 　//同時接続モードがSFUなのかMESHなのかをここで設定
 //   const getRoomModeByHash = () => (location.hash === '#sfu' ? 'sfu' : 'mesh');
 // 　//divタグに接続モードを挿入
@@ -43,7 +48,6 @@ window.onload = function () {
   if (textMsg != null) {
     // var user_name = document.getElementById(textMsg.id).textContent;
     var user_name = document.getElementById(textMsg.id).textContent.trim();
-    console.log(user_name);
     var myPeer = textMsg.id;
     var peer = new Peer(myPeer, {
       key: API_KEY,
@@ -110,6 +114,7 @@ window.onload = function () {
     });
 　　//部屋に誰かが接続してきた時（peerJoin）、いつでもdiv(messages)に下記のテキストを表示
     room.on('peerJoin', peerId => {
+
       let token = document.getElementsByName("csrf-token")[0].content; //セキュリティトークンの取得
       let xmlHR = new XMLHttpRequest();  // XMLHttpRequestオブジェクトの作成
       xmlHR.open("POST", "/rooms/search", true);  // open(HTTPメソッド, URL, 非同期通信[true:default]か同期通信[false]か）
@@ -144,7 +149,24 @@ window.onload = function () {
       newVideo.playsInline = true;
       // 誰かが退出した時どの人が退出したかわかるように、data-peer-idを付与
       newVideo.setAttribute('data-peer-id', stream.peerId);
-      remoteVideos.append(newVideo);
+
+      if ( remoteVideo1.children.length === 0 ) {
+        remoteVideo1.appendChild(newVideo).setAttribute("width", "200");
+        remoteVideo1.setAttribute('data-peer-id', stream.peerId);
+      } else if ( remoteVideo2.children.length === 0 ) {
+        remoteVideo2.appendChild(newVideo).setAttribute("width", "200");
+        remoteVideo2.setAttribute('data-peer-id', stream.peerId);
+      } else if ( remoteVideo3.children.length === 0 ) {
+        remoteVideo3.appendChild(newVideo).setAttribute("width", "200");
+        remoteVideo3.setAttribute('data-peer-id', stream.peerId);
+      } else if ( remoteVideo4.children.length === 0 ) {
+        remoteVideo4.appendChild(newVideo).setAttribute("width", "200");
+        remoteVideo4.setAttribute('data-peer-id', stream.peerId);
+      } else if ( remoteVideo5.children.length === 0 ) {
+        remoteVideo5.appendChild(newVideo).setAttribute("width", "200");
+        remoteVideo5.setAttribute('data-peer-id', stream.peerId);
+      } 
+      // remoteVideos.appendChild(newVideo).setAttribute("width", "200");
       await newVideo.play().catch(console.error);
     });
 
@@ -156,9 +178,9 @@ window.onload = function () {
     // 誰かが退出した場合、div（remoteVideos）内にある、任意のdata-peer-idがついたvideoタグの内容を空にして削除する
     room.on('peerLeave', peerId => {
 
-      const remoteVideo = remoteVideos.querySelector(
-        `[data-peer-id=${peerId}]`
-      );
+      const remoteVideoClass = remoteVideos.querySelector(`[data-peer-id=${peerId}]`);
+      const remoteVideo = remoteVideoClass.children[0];
+      console.log(remoteVideo);
 　　　　//videoストリームを止める上では定番の書き方らしい。https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/stop
       remoteVideo.srcObject.getTracks().forEach(track => track.stop());
       remoteVideo.srcObject = null;
@@ -170,10 +192,18 @@ window.onload = function () {
       xmlHR.responseType = "json";  // レスポンスデータをjson形式と指定
       xmlHR.setRequestHeader("Content-Type", "application/json");  // リクエストヘッダーを追加(HTTP通信でJSONを送る際のルール)
       xmlHR.setRequestHeader("X-CSRF-Token", token);  // リクエストヘッダーを追加（セキュリティトークンの追加）
-      let hashData = {  // 送信するデータをハッシュ形式で指定
-        peer: peerId    // 入力テキストを送信
-      };
-      let data = JSON.stringify(hashData); // 送信用のjson形式に変換
+      // let hashData = {  // 送信するデータをハッシュ形式で指定
+      //   peer: peerId    // 入力テキストを送信
+      // };
+      // let data = JSON.stringify(hashData); // 送信用のjson形式に変換
+      // let data = { peer: { peer: peerId }}
+      var data = new URLSearchParams( `peer=${peerId}`)
+      // var params = { peer: peerId};
+      // var pairs = Object.keys(params).map((key) => {
+      //     return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`;
+      // });
+      // var data = pairs.join('&');  // data === 'a=1&b=Hi%20there'
+      console.log(data);
       xmlHR.send(data);  // sendメソッドでサーバに送信
   
       xmlHR.onreadystatechange = function() {
@@ -199,7 +229,10 @@ window.onload = function () {
 　　　　//messagesに== You left ===\nを表示
       messages.textContent += '== You left ===\n';  
 　　　　//remoteVideos以下の全てのvideoタグのストリームを停めてから削除
-      Array.from(remoteVideos.children).forEach(remoteVideo => {
+      remoteVideosClass.forEach( function(element, index, array) {
+        array [ index ] = element.children
+      })
+      Array.from(remoteVideosClass).forEach(remoteVideo => {
         remoteVideo.srcObject.getTracks().forEach(track => track.stop());
         remoteVideo.srcObject = null;
         remoteVideo.remove();
