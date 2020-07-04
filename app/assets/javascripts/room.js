@@ -1,59 +1,4 @@
 window.onload = function () {
-  
-//   const API_KEY = "8f0613f7-8b39-4b72-bca3-6b39bb8c390d"; 
-//   let localStream;
-
-//     // カメラ映像取得
-//     navigator.mediaDevices.getUserMedia({video: true, audio: true})
-//       .then( stream => {
-//       // 成功時にvideo要素にカメラ映像をセットし、再生
-//       const videoElm = document.getElementById('my-video')
-//       videoElm.srcObject = stream;
-//       videoElm.play();
-//       // 着信時に相手にカメラ映像を返せるように、グローバル変数に保存しておく
-//       localStream = stream;
-//     }).catch( error => {
-//       // 失敗時にはエラーログを出力
-//       console.error('mediaDevice.getUserMedia() error:', error);
-//       return;
-//     });
-
-
-//     const peer = new Peer({
-//       key: '8f0613f7-8b39-4b72-bca3-6b39bb8c390d',
-//       debug: 3
-//     });
-
-//     peer.on('open', () => {
-//       document.getElementById('my-id').textContent = peer.id;
-//   });
-
-//   // 発信処理
-//   document.getElementById('make-call').onclick = () => {
-//     const theirID = document.getElementById('their-id').value;
-//     const mediaConnection = peer.call(theirID, localStream);
-//     setEventListener(mediaConnection);
-//   };
-
-//   // イベントリスナを設置する関数
-//   const setEventListener = mediaConnection => {
-//     mediaConnection.on('stream', stream => {
-//       // video要素にカメラ映像をセットして再生
-//       const videoElm = document.getElementById('their-video')
-//       videoElm.srcObject = stream;
-//       videoElm.play();
-//     });
-//   }
-
-//   //着信処理
-//   peer.on('call', mediaConnection => {
-//     mediaConnection.answer(localStream);
-//     setEventListener(mediaConnection);
-//   });
-// }
-// const API_KEY = "8f0613f7-8b39-4b72-bca3-6b39bb8c390d"; 
-//Peerモデルを定義
-// const Peer = window.Peer;
 
 (async function main() {
   const localVideo = document.getElementById('js-local-stream');
@@ -92,19 +37,62 @@ window.onload = function () {
   localVideo.playsInline = true;
   await localVideo.play().catch(console.error);
 
+  var textMsg = document.getElementById('peer-id');
+  console.log(textMsg);
+  if (textMsg != null) {
+    var peer = textMsg
+
+  } else {
+  console.log("2ばんめ");
+
   // Peerのインスタンス作成
   // API_KEYを設定
-  const peer = (window.peer = new Peer({
+  var peer = new Peer({
     key: API_KEY,
-    debug: 3,
-  }));
+    debug: 3
+  });
+  
+  peer.on('open', () => {
+    console.log(peer.id)
+ 
+    let token = document.getElementsByName("csrf-token")[0].content; //セキュリティトークンの取得
+    let xmlHR = new XMLHttpRequest();  // XMLHttpRequestオブジェクトの作成
+    xmlHR.open("POST", "/rooms", true);  // open(HTTPメソッド, URL, 非同期通信[true:default]か同期通信[false]か）
+    xmlHR.responseType = "json";  // レスポンスデータをjson形式と指定
+    xmlHR.setRequestHeader("Content-Type", "application/json");  // リクエストヘッダーを追加(HTTP通信でJSONを送る際のルール)
+    xmlHR.setRequestHeader("X-CSRF-Token", token);  // リクエストヘッダーを追加（セキュリティトークンの追加）
+    let hashData = {  // 送信するデータをハッシュ形式で指定
+      peer: {peer: peer.id }  // 入力テキストを送信
+    };
+    let data = JSON.stringify(hashData); // 送信用のjson形式に変換
+    xmlHR.send(data);  // sendメソッドでサーバに送信
+
+    xmlHR.onreadystatechange = function() {
+      if (xmlHR.readyState === 4) {  // readyStateが4になればデータの読込み完了
+        if (xmlHR.status === 200) {  // statusが200の場合はリクエストが成功
+          // (1) リクエストが成功した場合に行う処理
+          let peer = xmlHR.response;    
+          document.getElementById('my-id').textContent = peer.nickname;
+          alert("peer登録成功！")
+
+        } else {  // statusが200以外の場合はリクエストが適切でなかったとしてエラー表示
+          alert("peer登録失敗")
+        }
+        // (3) リクエストの成功・失敗に関わらず行う処理
+      }
+    };
+  });
+  }
 
   // 「div(joinTrigger)が押される＆既に接続が始まっていなかったら接続」するリスナーを設置
   joinTrigger.addEventListener('click', () => {
     if (!peer.open) {
+
+
       return;
     }
-
+  console.log("4ばんめ");
+    
   //部屋に接続するメソッド（joinRoom）
   // sfuをデフォルト指定
     const room = peer.joinRoom(roomId.value, {

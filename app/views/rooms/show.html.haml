@@ -4,12 +4,13 @@
     .container
       %h1.heading Room example
       %p.note
-        Change Room mode (before join in a room):
-        %a{ href: "#" } mesh / 
-        %a{ href: "#sfu" } sfu
-      .room
+        - if @peer
+          %p{ id: "peer-id" }
+            = @peer.peer
+        -else
+          %p{ id: "my-id" }
         %div
-          %video{ id: "js-local-stream", width: "200px", autoplay: "", muted: "true", playsinline: ""  }
+          %video{ id: "js-local-stream", width: "200px", autoplay: "", muted: "", playsinline: ""  }
           %span{ id: "js-room-mode" }
           %input{ id: "js-room-id", type: "text", value: "#{@room.name}" }
           %button{ id: "js-join-trigger" } Join
@@ -22,19 +23,4 @@
           %input{ id: "js-local-text", type: "text" }
           %button{ id: "js-send-trigger" } Send
         %p.meta{ id: "js-meta" }
-  %script{src: "https://cdn.webrtc.ecl.ntt.com/skyway-latest.js" }
-
-    -# .main__room__contents
-    -#   .room_video
-    -#     .room_video__me
-    -#       .room_video__me__number
-    -#         %p{ id: "my-id" }
-    -#       .room_video__me__camera
-    -#         %video{ id: "my-video", width: "200px", autoplay: "", muted: "", playsinline: "" }
-    -#     .room_video__you
-    -#       .room_video__me__camera
-    -#         %video{ id: "their-video", width: "400px", autoplay: "", muted: "", playsinline: "" }
-    -#   .room_call
-    -#     .room_call__box
-    -#       %textarea{ id: "their-id" }
-    -#       %button{ id: "make-call" }発信
+= javascript_include_tag 'room.js'
