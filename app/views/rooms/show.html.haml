@@ -5,8 +5,8 @@
       %h1.heading Room example
       %p.note
         - if @peer
-          %p{ id: "peer-id" }
-            = @peer.peer
+          %p{ id: "#{@peer.peer}", class: "my-peer-id" }
+            = @peer.user.nickname
         -else
           %p{ id: "my-id" }
         %div
