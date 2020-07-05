@@ -18,23 +18,7 @@ window.onload = function () {
   const remoteVideo3 = document.getElementById('js-remote-streams-3');
   const remoteVideo4 = document.getElementById('js-remote-streams-4');
   const remoteVideo5 = document.getElementById('js-remote-streams-5');
-// 　//同時接続モードがSFUなのかMESHなのかをここで設定
-//   const getRoomModeByHash = () => (location.hash === '#sfu' ? 'sfu' : 'mesh');
-// 　//divタグに接続モードを挿入
-//   roomMode.textContent = getRoomModeByHash();
-// 　//接続モードの変更を感知するリスナーを設置
-//   window.addEventListener(
-//     'hashchange',
-//     () => (roomMode.textContent = getRoomModeByHash())
-//   );
-
-  const arrayRemoteVideos = Array.prototype.slice.call(remoteVideosClass);
-  arrayRemoteVideos.forEach( function(element, index, array) {
-    array [ index ] = element.children[index]
-  })
-
-console.log(arrayRemoteVideos);
-
+  
 　//自分の映像と音声をlocalStreamに代入
   const localStream = await navigator.mediaDevices
     .getUserMedia({
@@ -71,7 +55,7 @@ console.log(arrayRemoteVideos);
   });
   
   peer.on('open', () => {
-
+   
     let token = document.getElementsByName("csrf-token")[0].content; //セキュリティトークンの取得
     let xmlHR = new XMLHttpRequest();  // XMLHttpRequestオブジェクトの作成
     xmlHR.open("POST", "/rooms", true);  // open(HTTPメソッド, URL, 非同期通信[true:default]か同期通信[false]か）
@@ -103,21 +87,28 @@ console.log(arrayRemoteVideos);
 
   // 「div(joinTrigger)が押される＆既に接続が始まっていなかったら接続」するリスナーを設置
   joinTrigger.addEventListener('click', () => {
-    if (!peer.open) {
-      return;
-    }
-    
+    if (!peer.open ) {
+      return;  
+    }     
   //部屋に接続するメソッド（joinRoom）
   // sfuをデフォルト指定
+
     const room = peer.joinRoom(roomId.value, {
       mode: "sfu",
       stream: localStream,
     });
 
 　　//部屋に接続できた時（open）に一度だけdiv(messages)に=== You joined ===を表示
-    room.once('open', () => {
+    room.once('open', ( )=> {
+      peer.listAllPeers(peers => {
+        if (peers.length > 6) {
+          peer.disconnect();
+          alert("満室です！");
+        }
+      });
       messages.textContent += '=== You joined ===\n';
     });
+    
 　　//部屋に誰かが接続してきた時（peerJoin）、いつでもdiv(messages)に下記のテキストを表示
     room.on('peerJoin', peerId => {
 
