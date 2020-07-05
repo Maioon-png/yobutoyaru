@@ -1,0 +1,9 @@
+.wrapper
+  = render "top/side_bar"
+  .main__rooms
+    .room_lists
+      %ul
+        - @rooms.each do |room|
+          %li
+          = link_to "#{room.name}", room_path(room) ,class: "side_bar__content__"
+            

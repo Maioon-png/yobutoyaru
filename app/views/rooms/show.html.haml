@@ -1,0 +1,42 @@
+.wrapper
+  = render "top/side_bar"
+  .main__room
+    .container
+      .header 
+        .header__room-name
+          %h1.heading Room 1
+        .header__btn
+          %input{ id: "js-room-id", type: "text", value: "#{@room.name}" }
+          %button{ id: "js-join-trigger" } Join
+          %button{ id: "js-leave-trigger" } Leave
+      .content
+        .content__upper
+          %p.note
+            - if @peer
+              %p{ id: "#{@peer.peer}", class: "my-peer-id" }
+                = @peer.user.nickname
+                さん、ようこそ！
+            -else
+              %p{ id: "my-id" }
+        .content__main
+          .content__main__left
+            .content__main__left__inner
+              .videos{ id: "js-remote-streams" }
+                .video__main
+                  %video{ id: "js-local-stream", width: "200px", autoplay: "", muted: "", playsinline: ""  }          
+                .video__others__1.js-remote-streams{ id: "js-remote-streams-1" }
+                .video__others__2.js-remote-streams{ id: "js-remote-streams-2" }
+                .video__others__3.js-remote-streams{ id: "js-remote-streams-3" }
+                .video__others__4.js-remote-streams{ id: "js-remote-streams-4" }
+                .video__others__5.js-remote-streams{ id: "js-remote-streams-5" }
+          .content__main__right
+            .content__main__right__contents
+              .messages
+                .messages__display
+                  %pre.messages{ id: "js-messages" }
+                .messages__form
+                  %input{ id: "js-local-text", type: "text" }
+                  %button{ id: "js-send-trigger" } Send
+            %p.meta{ id: "js-meta" }
+        .content__under
+= javascript_include_tag 'room.js'

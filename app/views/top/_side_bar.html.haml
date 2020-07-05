@@ -8,7 +8,7 @@
       %li
         = link_to "Signin", new_user_registration_path,class: "side_bar__content__"
       %li
-        = link_to "Room", root_path ,class: "side_bar__content__"
+        = link_to "Room", rooms_path ,class: "side_bar__content__"
       %li
         = link_to "Recoed", root_path ,class: "side_bar__content__"
       %li
@@ -19,6 +19,6 @@
               = link_to root_path, class: "saide-bar__icon" do
                 = icon('fas', 'user-edit')
             %li
-              = link_to root_path, class: "saide-bar__icon" do
+              = link_to destroy_user_session_path, method: :delete, class: "saide-bar__icon" do
                 = icon('fas', 'door-open')
 
