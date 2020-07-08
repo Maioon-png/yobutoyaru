@@ -67,3 +67,5 @@ gem 'font-awesome-sass'
 gem 'devise'
 gem 'rails_12factor', group: :production
 gem "jquery-rails"
+gem 'gon'
+gem 'dotenv-rails'
