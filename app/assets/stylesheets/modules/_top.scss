@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap');
 * {
   box-sizing: border-box;
 }
@@ -7,26 +8,49 @@ html, body {
 .wrapper {
   display: flex;
   height: 100%;
+  background-color: #87ceeb;
 }
 
 .side_bar {
   height: 100%;
   width: 200px;
-  margin-left: 60px;
+  margin-left: 30px;
   &__content {
     height: 100%;
-    border:solid 1px;
-    border-color: white lightcoral white lightcoral;
     position: relative;
-    &__list {
+    &__inner {
       position: absolute;
       top: 50%;
-      left: 50%;
-      -webkit-transform : translate(-50%,-50%);
-      transform : translate(-50%,-50%);
-      &__bottom {
-        .side_bar__icons {
-          display: flex;
+      -webkit-transform : translateY(-50%);
+      transform : translateY(-50%);
+      // margin-top: 100px;
+      height: 250px;
+      background-color: #f0f0f0d8;
+      border-color: #f0f0f0d8;
+      position: relative;
+      &__list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform : translate(-50%,-50%);
+        transform : translate(-50%,-50%);
+        &__link {
+          margin-bottom: 20px;
+          font-family: 'Ubuntu', sans-serif;
+          a {
+            
+            text-decoration:none;
+            color: #87ceeb;
+          }
+          a:hover {
+            color: silver;
+            font-size: 15px;
+          }
+        }
+        &__bottom {
+          .side_bar__icons {
+            display: flex;
+          }
         }
       }
     }
@@ -34,6 +58,10 @@ html, body {
 }
 
 .main {
-  height: 100%;
+  height: 100vh;
   width:  100%;
+  .top_contents {
+    height: 100vh;
+    overflow: scroll;
+  }
 }
