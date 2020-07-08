@@ -6,6 +6,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id]);
     @peer = Peer.find_by(user_id: current_user.id)
+    gon.skyway_key = ENV["SKYWAY_API_KEY"]
   end
 
   def create
