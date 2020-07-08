@@ -4,14 +4,15 @@
     .container
       .header 
         .header__room-name
-          %h1.heading Room 1
+          %h1.heading
+            = @room.name
         .header__btn
           %input{ id: "js-room-id", type: "text", value: "#{@room.name}" }
           %button{ id: "js-join-trigger" } Join
           %button{ id: "js-leave-trigger" } Leave
       .content
         .content__upper
-          %p.note
+          %h1.welcome-user
             - if @peer
               %p{ id: "#{@peer.peer}", class: "my-peer-id" }
                 = @peer.user.nickname
