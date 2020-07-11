@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Sawarabi+Gothic');
 * {
   box-sizing: border-box;
 }
@@ -63,5 +64,71 @@ html, body {
   .top_contents {
     height: 100vh;
     overflow: scroll;
+    &__main {
+      font-family: "Sawarabi Gothic"; 
+      &__text2 {    
+        p {
+          text-align: center;
+        }
+      }
+      &__text3{
+        p {
+          text-align: center;
+        }
+      }
+      .top-content1{
+        display: flex;
+        justify-content: center;
+        margin: 100px 50px;
+        .top-img1 {
+          text-align: right;
+          margin-right: 70px;
+        }
+        .top-text1 {  
+          P {
+            padding-top: 55px;
+          }
+        }
+        
+      }
+      .top-content2 {
+        display: flex;
+        justify-content: center;
+        margin: 100px 50px 150px;
+        .top-img2 {
+          text-align: right;
+          img {
+            transform: scale(-1, 1);
+          }
+        }
+        .top-text2 {
+          margin-right: 70px;
+          p {
+            line-height: 199px;
+          }
+        }
+      }
+      .top-content3{
+        margin: 100px 50px 50px;
+        .top-img3{
+          text-align: center;
+        }
+      }
+      .top-content4{
+        display: flex;
+        justify-content: center;
+        .top-img5{
+          .img-center {
+            margin: 50px 10px 0;
+          }
+        }
+        .top-img6{
+          img {
+            transform: scale(-1, 1);
+            margin-top: -30px;
+          }
+        }
+      }
+    }
   }
 }
