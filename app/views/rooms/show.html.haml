@@ -10,6 +10,8 @@
           %input{ id: "js-room-id", type: "text", value: "#{@room.name}" }
           %button{ id: "js-join-trigger" } Join
           %button{ id: "js-leave-trigger" } Leave
+        .header__time
+          %h1{ id: "timerLabel" } 00:00:00
       .content
         .content__upper
           %h1.welcome-user
