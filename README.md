@@ -41,7 +41,7 @@ https://taskwith.herokuapp.com/
 ### インフラストラクチャー
 * Mysql
 * Heroku
-<br>
+
 
 ## :point_up: 工夫したポイント
 ユーザーがビデオ通話にjoinするとSkyWayからユーザーを識別するための<br>
