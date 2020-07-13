@@ -17,6 +17,7 @@
 ## :globe_with_meridians: URL
 https://taskwith.herokuapp.com/
 <br>
+<br>
 
 ## :eyes: DEMO
 〜gifが画像載せる〜
@@ -40,7 +41,6 @@ https://taskwith.herokuapp.com/
 ### インフラストラクチャー
 * Mysql
 * Heroku
-<br>
 <br>
 
 ## :point_up: 工夫したポイント
