@@ -19,5 +19,11 @@
         font-size: 30px;
       }
     }
+    .record_img {
+      display: flex;
+      .record_img_2 {
+        transform: scale(-1, 1);
+      }
+    }
   }
 }
