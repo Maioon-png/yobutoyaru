@@ -1,3 +1,23 @@
-// Place all the styles related to the records controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.main__record {
+  width: 100%;
+  &__contents {
+    width: 300px;
+    margin: 0 auto;
+    .record__text {
+      margin: 100px auto 50px auto;
+      width: 300px;
+      font-size: 20px;
+      color: white;/*文字色*/
+      padding: 0.5em 0;/*上下の余白*/
+      border-top: solid 3px white;/*上線*/
+      border-bottom: solid 3px white;/*下線*/
+      text-align: center;
+    }
+    .record_time {
+      .time_box {
+        text-align: center;
+        font-size: 30px;
+      }
+    }
+  }
+}

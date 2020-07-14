@@ -1,15 +1,21 @@
 .wrapper
   = render "top/side_bar"
-  .main__recdord
-    .main__redord__contents
-      作業累計時間
+  .main__record
+    .main__record__contents
+      .record__text
+        作業累計時間
       .record_time
         - if @time_min
           - if @time_min > 0
-            = "#{@time_min}分"
+            .time_box
+              = "#{@time_min}分"
           - else
-            まだ０分未満です。
+            .time_box
+              まだ０分未満です。
           
         - else
-          まだ記録はありません。
-          
+          .time_box
+            まだ記録はありません。
+          %br
+          = link_to "Room", rooms_path
+          へ行ってみましょう。
