@@ -1,5 +1,6 @@
 .main__record {
   width: 100%;
+  position: relative;
   &__contents {
     width: 300px;
     margin: 0 auto;
@@ -12,18 +13,65 @@
       border-top: solid 3px white;/*上線*/
       border-bottom: solid 3px white;/*下線*/
       text-align: center;
+      position: relative;
+      z-index: 10;
     }
     .record_time {
       .time_box {
         text-align: center;
         font-size: 30px;
+        position: relative;
+        z-index: 10;
+        border: solid 1px white;
+        padding: 10px 0;
+        background-color:rgba(255, 255, 255, 0.6);
+      }
+      .time_box_less {
+        text-align: center;
+        font-size: 30px;
+        position: relative;
+        z-index: 10;
+        border: solid 1px white;
+        padding: 10px 0;
+        background-color:rgba(255, 255, 255, 0.6);
+      }
+      .time_box_no-time {
+        text-align: center;
+        font-size: 15px;
+        position: relative;
+        z-index: 10;
+        border: solid 1px white;
+        padding: 10px 0;
+        background-color:rgba(255, 255, 255, 0.6);
       }
     }
     .record_img {
+      margin-top: 30px;
       display: flex;
+      justify-content: space-between;
+      .record_img_1 {
+        position: relative;
+        z-index: 10;
+        
+      }
       .record_img_2 {
         transform: scale(-1, 1);
+        position: relative;
+        z-index: 10;
       }
     }
+  }
+  .background_img {
+    background-image: url(taskwith9.png);
+    border-radius: 300px;
+    height: 400px;
+    opacity: 0.8;
+    width: 70%;
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
   }
 }

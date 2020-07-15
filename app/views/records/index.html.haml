@@ -10,17 +10,19 @@
             .time_box
               = "#{@time_min}分"
           - else
-            .time_box
+            .time_box_less
               まだ０分未満です。
           
         - else
-          .time_box
+          .time_box_no-time
             まだ記録はありません。
           %br
           = link_to "Room", rooms_path
           へ行ってみましょう。
       .record_img
         .record_img_1
-          = image_tag 'taskwith7.png', width: "200"
+          = image_tag 'taskwith7.png', width: "100"
         .record_img_2
-          = image_tag 'taskwith8.png', width: "200"
+          = image_tag 'taskwith8.png', width: "100"
+    .background_img
+  
