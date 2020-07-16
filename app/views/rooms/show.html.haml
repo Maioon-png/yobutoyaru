@@ -17,7 +17,7 @@
           %h1.welcome-user
             - if @peer
               %p{ id: "#{@peer.peer}", class: "my-peer-id" }
-                = @peer.user.nickname
+                = current_user.nickname
                 さん、ようこそ！
             -else
               %p{ id: "my-id" }
