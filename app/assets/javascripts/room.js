@@ -12,7 +12,8 @@ window.onload = function () {
   const sendTrigger = document.getElementById('js-send-trigger');
   const messages = document.getElementById('js-messages');
   // const meta = document.getElementById('js-meta');
-  const API_KEY = gon.skyway_key; 
+  const API_KEY = gon.skyway_key;
+  const userName = document.getElementById('user-name').textContent.trim();
   const remoteVideo1 = document.getElementById('js-remote-streams-1');
   const remoteVideo2 = document.getElementById('js-remote-streams-2');
   const remoteVideo3 = document.getElementById('js-remote-streams-3');
@@ -95,7 +96,6 @@ window.onload = function () {
   });
   
   peer.on('open', () => {
-   
     let token = document.getElementsByName("csrf-token")[0].content; //セキュリティトークンの取得
     let xmlHR = new XMLHttpRequest();  // XMLHttpRequestオブジェクトの作成
     xmlHR.open("POST", "/rooms", true);  // open(HTTPメソッド, URL, 非同期通信[true:default]か同期通信[false]か）
@@ -216,12 +216,38 @@ window.onload = function () {
 
     //重要：　誰かがテキストメッセージを送った時、messagesを更新
     room.on('data', ({ data, src }) => {
-      messages.textContent += `${src}: ${data}\n`;
+
+      let token = document.getElementsByName("csrf-token")[0].content; //セキュリティトークンの取得
+      let xmlHR = new XMLHttpRequest();  // XMLHttpRequestオブジェクトの作成
+      xmlHR.open("POST", "/rooms/search", true);  // open(HTTPメソッド, URL, 非同期通信[true:default]か同期通信[false]か）
+      xmlHR.responseType = "json";  // レスポンスデータをjson形式と指定
+      xmlHR.setRequestHeader("Content-Type", "application/json");  // リクエストヘッダーを追加(HTTP通信でJSONを送る際のルール)
+      xmlHR.setRequestHeader("X-CSRF-Token", token);  // リクエストヘッダーを追加（セキュリティトークンの追加）
+      let hashData = {  // 送信するデータをハッシュ形式で指定
+        peer: src    // 入力テキストを送信
+      };
+      let userdata = JSON.stringify(hashData); // 送信用のjson形式に変換
+      xmlHR.send(userdata);  // sendメソッドでサーバに送信
+      xmlHR.onreadystatechange = function() {
+        if (xmlHR.readyState === 4) {  // readyStateが4になればデータの読込み完了
+          if (xmlHR.status === 200) {  // statusが200の場合はリクエストが成功
+            // (1) リクエストが成功した場合に行う処理
+            let userName = xmlHR.response;  
+            console.log("MESSAGEOK!");  
+            messages.textContent += `${userName.nickname}: ${data}\n`;
+          } else {  // statusが200以外の場合はリクエストが適切でなかったとしてエラー表示
+            alert("参加者のnickname取得失敗")
+          }
+          // (3) リクエストの成功・失敗に関わらず行う処理
+        }
+      };
+
+      
     });
 
     // 誰かが退出した場合、div（remoteVideos）内にある、任意のdata-peer-idがついたvideoタグの内容を空にして削除する
     room.on('peerLeave', peerId => {
-
+      console.logh("ここ動かないの？");
       const remoteVideoClass = remoteVideos.querySelector(`[data-peer-id=${peerId}]`);
       const remoteVideo = remoteVideoClass.children[0];
       console.log(remoteVideo); //<video playsinline="" data-peer-id="oQ6B75mxkTVfRE9c" width="200"></video>
@@ -326,7 +352,7 @@ window.onload = function () {
 　　　//テキストメッセージを送る処理
     function onClickSend() {
       room.send(localText.value);
-      messages.textContent += `${peer.id}: ${localText.value}\n`;
+      messages.textContent += `${userName}: ${localText.value}\n`;
       localText.value = '';
     }
   });
