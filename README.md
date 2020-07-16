@@ -46,11 +46,10 @@ https://yobutoyaru.herokuapp.com/
 
 
 ## :point_up: 工夫したポイント
-ビデオ通話機能で、[SkyWay](https://webrtc.ecl.ntt.com/)というWeb APIを使用しました。<br>
-Web APIに触れてみたい！という思いとJavaScriptを使うことで導入が出来る、
-ということで今回使用しました。
+アプリのメイン機能であるビデオ通話機能は、[SkyWay](https://webrtc.ecl.ntt.com/)というWeb APIを初めて使用しました。<br>
+カスタマイズには少し苦労しましたが、導入に関してはスムーズに行うことが出来ました。
 <br>
-また、SkyWayからユーザーを識別するために発行されるPeerIDというIDを<br>
+また細かな部分ですと、SkyWayからユーザーを識別するために発行されるPeerIDというIDを<br>
 アプリ内のユーザー情報を紐付けて管理をしています。<br>
 そうすることでjoin/leave時やコメント送信時にPeerIDではなくユーザーニックネームが表示されたり、各ユーザーのjoin時間を測定し、累計時間をDBで保存出来るようにしました。
 <br>
