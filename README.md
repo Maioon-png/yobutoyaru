@@ -1,4 +1,4 @@
-# TaskWith
+# ヨブトヤル
 
 ユーザー同士でビデオ通話を繋げて、<br>
 リアルタイムに一緒に黙々と作業会や勉強をするためのアプリです。
@@ -20,9 +20,6 @@ https://taskwith.herokuapp.com/
 <br>
 
 ## :eyes: DEMO
-<!-- ![Topページ](https://user-images.githubusercontent.com/61342566/87677493-c9afbe00-c7b4-11ea-8516-c0083eee5e2d.png)
-![Roomページ](https://user-images.githubusercontent.com/61342566/87676448-97519100-c7b3-11ea-829a-eb2519c454cb.png)
-![Recordページ](https://user-images.githubusercontent.com/61342566/87676488-a46e8000-c7b3-11ea-8872-ddfa86567a48.png) -->
 <img src="https://user-images.githubusercontent.com/61342566/87677493-c9afbe00-c7b4-11ea-8516-c0083eee5e2d.png" width=70%>
 <img src="https://user-images.githubusercontent.com/61342566/87676448-97519100-c7b3-11ea-829a-eb2519c454cb.png" width=70%>
 <img src="https://user-images.githubusercontent.com/61342566/87676488-a46e8000-c7b3-11ea-8872-ddfa86567a48.png" width=70%>
