@@ -11,7 +11,7 @@ class RecordsController < ApplicationController
   def create
     user_record = Record.find_by(user_id: current_user.id)
     if user_record
-      @time = Record.update(time: user_record.time + params[:time])
+      @time = user_record.update(time: user_record.time + params[:time])
     else
       @time = Record.create(record_params)
     end
