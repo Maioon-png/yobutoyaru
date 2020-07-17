@@ -39,7 +39,6 @@ html, body {
           margin-bottom: 20px;
           font-family: 'Ubuntu', sans-serif;
           a {
-            
             text-decoration:none;
             color: #87ceeb;
           }
@@ -51,6 +50,17 @@ html, body {
         &__bottom {
           .side_bar__icons {
             display: flex;
+          }
+        }
+        .gest_login {
+          font-size: 11px;
+          a {
+            text-decoration:none;
+            color: #87ceeb;
+          }
+          a:hover {
+            color: silver;
+            font-size: 5px;
           }
         }
       }
