@@ -13,7 +13,7 @@ window.onload = function () {
   const messages = document.getElementById('js-messages');
   // const meta = document.getElementById('js-meta');
   const API_KEY = gon.skyway_key;
-  const userName = document.getElementById('user-name').textContent.trim();
+  const userName = document.getElementById('user-name');
   const remoteVideo1 = document.getElementById('js-remote-streams-1');
   const remoteVideo2 = document.getElementById('js-remote-streams-2');
   const remoteVideo3 = document.getElementById('js-remote-streams-3');
@@ -232,9 +232,9 @@ window.onload = function () {
         if (xmlHR.readyState === 4) {  // readyStateが4になればデータの読込み完了
           if (xmlHR.status === 200) {  // statusが200の場合はリクエストが成功
             // (1) リクエストが成功した場合に行う処理
-            let userName = xmlHR.response;  
+            let otherUserName = xmlHR.response;  
             console.log("MESSAGEOK!");  
-            messages.textContent += `${userName.nickname}: ${data}\n`;
+            messages.textContent += `${otherUserName.nickname}: ${data}\n`;
           } else {  // statusが200以外の場合はリクエストが適切でなかったとしてエラー表示
             alert("参加者のnickname取得失敗")
           }
@@ -352,7 +352,8 @@ window.onload = function () {
 　　　//テキストメッセージを送る処理
     function onClickSend() {
       room.send(localText.value);
-      messages.textContent += `${userName}: ${localText.value}\n`;
+      let userNickName = userName.textContent.trim()
+      messages.textContent += `${userNickName}: ${localText.value}\n`;
       localText.value = '';
     }
   });
