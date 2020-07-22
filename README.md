@@ -15,7 +15,7 @@
 <br>
 
 ## :globe_with_meridians: URL
-https://yobutoyaru.herokuapp.com
+https://yobutoyaru.herokuapp.com/
 <br>
 <br>
 
