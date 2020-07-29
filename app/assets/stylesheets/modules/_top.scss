@@ -24,7 +24,6 @@ html, body {
       top: 50%;
       -webkit-transform : translateY(-50%);
       transform : translateY(-50%);
-      // margin-top: 100px;
       height: 250px;
       background-color: #f0f0f0d8;
       border-color: #f0f0f0d8;
@@ -50,6 +49,7 @@ html, body {
         &__bottom {
           .side_bar__icons {
             display: flex;
+            margin-top: 10px;
           }
         }
         .gest_login {
