@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   end
 
   resources :records, only: [:index, :create]
-
+  resources :rankings, only: [:index]
 end
