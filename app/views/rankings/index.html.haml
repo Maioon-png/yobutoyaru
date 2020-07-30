@@ -1,1 +1,30 @@
-test
+.wrapper
+  = render "top/side_bar"
+  .main__ranking
+    .main__ranking__contents
+      .ranking__text
+        作業累計時間ランキング
+      .ranking_table
+        %table
+          %tr
+            %th
+              ユーザー
+            %th
+              時間
+          - @records.each_with_index do |r, i|
+            %tr
+              %td 
+                = "#{i + 1}位     " + r.user.nickname
+              %td
+                - if r.time >= 360000
+                  = "#{(r.time / 100 / 60 / 60).floor}" + "時間" + "#{((r.time - 360000) / 100 / 60).floor}" + "分"
+                - elsif 360000 > r.time && r.time >= 6000
+                  = "#{(r.time / 100 / 60).floor}" + "分"
+                - else
+                  "0分"
+      .ranking_img
+        .ranking_img_1
+          = image_tag 'taskwith7.png', width: "100"
+        .ranking_img_2
+          = image_tag 'taskwith8.png', width: "100"
+    .ranking_background_img
