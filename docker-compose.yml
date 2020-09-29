@@ -1,0 +1,30 @@
+version: '3'
+
+volumes: 
+  db-data:
+
+services:
+  web:
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/fruits-sand'
+    environment:
+      - 'DATABASE_PASSWORD=password'
+    tty: true
+    stdin_open: true
+    depends_on: 
+      - db
+    links: 
+      - db
+
+  db:
+    image: mysql:5.7
+    volumes: 
+      - 'db-data:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    ports:
+      - "4306:3306"
